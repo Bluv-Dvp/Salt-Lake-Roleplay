@@ -3,671 +3,506 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salt Lake Staff Access</title>
+    <title>Staff Application Portal</title>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Inter for Clean Look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #000000;
+            --bg-color: #050505;
             --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.15);
             --text-primary: #ffffff;
-            --text-secondary: #aaaaaa;
-            --accent: #00e5ff; /* Cyan Neon */
-            --accent-glow: rgba(0, 229, 255, 0.4);
-            --danger: #ff2a2a;
-            --success: #00ff88;
-            --warning: #ffcc00;
+            --text-muted: #888888;
+            --accent: #ffffff;
         }
 
         body {
             margin: 0;
             padding: 0;
             background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(0, 229, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(100, 0, 255, 0.05) 0%, transparent 20%);
             color: var(--text-primary);
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif; /* Clean, non-digital font */
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Prevent scrolling */
+            overflow: hidden; 
         }
 
-        /* Glassmorphism Container */
+        /* Architectural Glass Container */
         .glass-panel {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(40px); /* Heavy blur for solid feel */
+            -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 40px;
+            border-radius: 24px;
+            padding: 50px; /* More whitespace */
             width: 90%;
-            max-width: 900px;
-            max-height: 90vh;
+            max-width: 1000px; /* Wider */
+            max-height: 92vh;
             overflow-y: auto;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
+            box-shadow: 0 20px 80px rgba(0,0,0,0.8);
             position: relative;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.6s ease;
         }
 
-        /* Scrollbar styling */
-        .glass-panel::-webkit-scrollbar {
-            width: 8px;
-        }
-        .glass-panel::-webkit-scrollbar-track {
-            background: rgba(0,0,0,0.3);
-        }
-        .glass-panel::-webkit-scrollbar-thumb {
-            background: var(--glass-border);
-            border-radius: 4px;
-        }
+        /* Clean Scrollbar */
+        .glass-panel::-webkit-scrollbar { width: 4px; }
+        .glass-panel::-webkit-scrollbar-track { background: transparent; }
+        .glass-panel::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
 
-        h1, h2, h3 {
-            margin-top: 0;
-            font-weight: 300;
-            letter-spacing: 1px;
-            text-transform: uppercase;
+        /* Typography - BIG and CLEAN */
+        h1 {
+            font-size: 3.5rem; /* Huge */
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            letter-spacing: -2px; /* Tight, modern tracking */
+            line-height: 1;
+            background: linear-gradient(to bottom right, #fff, #999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
-        h1 { color: var(--accent); text-shadow: 0 0 10px var(--accent-glow); margin-bottom: 20px; }
-        h3 { color: var(--text-primary); font-size: 1.1rem; margin-bottom: 10px; }
+        h2 { font-size: 2rem; font-weight: 600; margin-bottom: 20px; letter-spacing: -1px; }
+        h3 { font-size: 1.2rem; font-weight: 600; margin-bottom: 10px; color: #fff; }
 
         p, li {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 1.1rem; /* Larger body text */
+            font-weight: 400;
         }
 
-        strong { color: var(--text-primary); }
-
-        /* Timer Display */
+        /* Timer Display - Minimalist */
         #timer-display {
-            font-family: monospace;
-            font-size: 2rem;
+            font-family: 'Inter', sans-serif; /* No monospace */
+            font-size: 4rem;
+            font-weight: 200;
             color: var(--text-primary);
-            margin: 20px 0;
-            padding: 15px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 8px;
+            margin: 30px 0;
             text-align: center;
-            border: 1px solid var(--glass-border);
-            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+            letter-spacing: -2px;
         }
 
-        /* Inputs */
+        /* Inputs - Modern */
         textarea, input[type="text"] {
             width: 100%;
-            background: rgba(0,0,0,0.4);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--glass-border);
             color: var(--text-primary);
-            padding: 15px;
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 1rem;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
             box-sizing: border-box;
             resize: none;
-            margin-top: 15px;
-            transition: border 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+            transition: all 0.3s ease;
         }
 
         textarea:focus, input:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 15px var(--accent-glow);
+            border-color: #fff;
+            background: rgba(255,255,255,0.07);
         }
 
-        textarea { height: 150px; }
+        textarea { height: 180px; }
 
-        /* Buttons */
+        /* Buttons - Elegant */
         .btn {
-            background: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 12px 30px;
-            font-size: 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 20px;
-            transition: all 0.3s ease;
-            width: 100%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:hover {
-            background: var(--accent);
+            background: #fff;
             color: #000;
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        .btn:disabled {
-            border-color: var(--glass-border);
-            color: var(--glass-border);
-            cursor: not-allowed;
-            box-shadow: none;
-            background: transparent;
-        }
-
-        /* Code Snippets */
-        .code {
-            background: rgba(0,0,0,0.6);
-            color: #0f0;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-            border: 1px solid var(--glass-border);
-        }
-
-        /* Fade Animation */
-        .fade-out { opacity: 0; pointer-events: none; }
-        .fade-in { opacity: 1; pointer-events: auto; }
-        
-        .hidden { display: none; }
-
-        .progress-bar {
-            height: 2px;
-            background: var(--glass-border);
+            border: none;
+            padding: 18px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 100px; /* Pill shape */
+            cursor: pointer;
+            text-transform: none; /* Removed uppercase */
+            margin-top: 30px;
+            transition: transform 0.2s ease, box-shadow 0.2s;
             width: 100%;
-            margin-bottom: 20px;
-            position: relative;
-        }
-        .progress-fill {
-            height: 100%;
-            background: var(--accent);
-            width: 0%;
-            transition: width 0.3s;
-            box-shadow: 0 0 10px var(--accent-glow);
-        }
-
-        .question-meta {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--text-secondary);
-            margin-bottom: 10px;
             display: block;
         }
 
-        /* --- NEW STUDY FEATURES CSS --- */
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255,255,255,0.2);
+        }
 
-        /* Animation Container */
+        .btn:disabled {
+            background: #333;
+            color: #666;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .hidden { display: none; }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            background: rgba(255,255,255,0.1);
+            height: 4px;
+            border-radius: 2px;
+            margin-bottom: 30px;
+        }
+        .progress-fill {
+            height: 100%;
+            background: #fff;
+            width: 0%;
+            border-radius: 2px;
+            transition: width 0.4s ease;
+        }
+
+        /* --- ANIMATION (Cleaned Up) --- */
         .flow-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border-top: 1px solid var(--glass-border);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 40px 0;
+            margin: 40px 0;
             position: relative;
-            overflow: hidden;
         }
 
-        .flow-step {
-            text-align: center;
-            flex: 1;
-            z-index: 2;
-        }
+        .flow-step { text-align: center; flex: 1; z-index: 2; opacity: 0.4; transition: opacity 0.5s; }
+        .flow-step.active { opacity: 1; }
 
-        .flow-icon {
-            font-size: 1.5rem;
-            margin-bottom: 5px;
-            display: block;
-        }
+        .flow-icon { font-size: 2rem; margin-bottom: 12px; display: block; }
+        .flow-label { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
 
-        .flow-arrow {
-            color: var(--accent);
-            font-size: 1.5rem;
-            animation: pulse-arrow 1.5s infinite;
-        }
-
-        @keyframes pulse-arrow {
-            0% { opacity: 0.3; transform: translateX(-5px); }
-            50% { opacity: 1; transform: translateX(5px); }
-            100% { opacity: 0.3; transform: translateX(-5px); }
-        }
-
-        /* Accordion Styles */
+        /* --- ACCORDION (Minimalist) --- */
         .accordion {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: transparent;
             color: var(--text-primary);
             cursor: pointer;
-            padding: 18px;
+            padding: 25px 0;
             width: 100%;
             border: none;
+            border-bottom: 1px solid var(--glass-border);
             text-align: left;
             outline: none;
-            font-size: 1rem;
-            transition: 0.4s;
-            border-bottom: 1px solid var(--glass-border);
+            font-size: 1.2rem;
+            font-weight: 600;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            transition: opacity 0.3s;
         }
 
-        .accordion:hover, .active {
-            background-color: rgba(0, 229, 255, 0.1);
-            color: var(--accent);
-        }
-
-        .accordion:first-child { border-top-left-radius: 8px; border-top-right-radius: 8px; }
-        .accordion:last-of-type { border-bottom: none; }
+        .accordion:hover { opacity: 0.7; }
 
         .panel {
-            padding: 0 18px;
-            background-color: rgba(0, 0, 0, 0.2);
-            max-height: 0;
+            padding: 0;
+            max-height: 0; 
             overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            border-left: 3px solid var(--accent);
+            transition: max-height 0.4s ease;
         }
 
-        .panel p { margin: 15px 0; }
-
-        /* Status Badges */
-        .status-badge {
-            display: inline-block;
+        .panel-content { padding: 20px 0 40px 0; }
+        
+        .code {
+            background: rgba(255,255,255,0.1);
             padding: 4px 8px;
             border-radius: 4px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-right: 5px;
+            font-family: 'Inter', sans-serif; /* Kept consistent */
+            font-weight: 600;
         }
-        .sb-success { background: rgba(0, 255, 136, 0.2); color: var(--success); border: 1px solid var(--success); }
-        .sb-warn { background: rgba(255, 204, 0, 0.2); color: var(--warning); border: 1px solid var(--warning); }
-        .sb-danger { background: rgba(255, 42, 42, 0.2); color: var(--danger); border: 1px solid var(--danger); }
 
+        .accordion:after { content: '+'; font-size: 1.5rem; font-weight: 300; }
+        .active:after { content: '-'; }
     </style>
 </head>
 <body>
 
     <!-- SECTION 1: STUDY GUIDE -->
     <div id="section-study" class="glass-panel">
-        <h1>Official Staff Study Guide</h1>
-        <p>You are required to study the materials below. The application will remain locked for <strong>5 minutes</strong> to ensure you have reviewed all protocols.</p>
+        <h1>Protocol Manual</h1>
+        <p style="font-size: 1.3rem;">Please review the operational standards. Access is locked for <strong>3 minutes</strong>.</p>
 
-        <div id="timer-display">05:00</div>
+        <div id="timer-display">03:00</div>
 
-        <!-- FEATURE 1: ANIMATED PROCESS FLOW -->
-        <h3 style="color: var(--accent); font-size: 0.9rem; text-align: center; margin-bottom: 10px;">LIVE TICKET WORKFLOW</h3>
+        <!-- ANIMATED PROCESS FLOW -->
         <div class="flow-container">
-            <div class="flow-step">
-                <span class="flow-icon">👤</span>
-                <span style="font-size:0.8rem; color:var(--text-secondary)">User DM</span>
+            <div class="flow-step" id="step-1">
+                <i class="fa-regular fa-user flow-icon"></i>
+                <div class="flow-label">User DM</div>
             </div>
-            <div class="flow-arrow">➜</div>
-            <div class="flow-step">
-                <span class="flow-icon">🤖</span>
-                <span style="font-size:0.8rem; color:var(--accent)">Bot Core</span>
+            <div class="flow-step" id="step-2">
+                <i class="fa-solid fa-server flow-icon"></i>
+                <div class="flow-label">System</div>
             </div>
-            <div class="flow-arrow">➜</div>
-            <div class="flow-step">
-                <span class="flow-icon">📂</span>
-                <span style="font-size:0.8rem; color:var(--text-secondary)">Private Thread</span>
+            <div class="flow-step" id="step-3">
+                <i class="fa-solid fa-layer-group flow-icon"></i>
+                <div class="flow-label">Thread</div>
             </div>
-            <div class="flow-arrow">➜</div>
-            <div class="flow-step">
-                <span class="flow-icon">🛡️</span>
-                <span style="font-size:0.8rem; color:var(--success)">Staff Reply</span>
+            <div class="flow-step" id="step-4">
+                <i class="fa-solid fa-shield-halved flow-icon"></i>
+                <div class="flow-label">Staff</div>
             </div>
         </div>
 
-        <div style="height: 350px; overflow-y: auto; padding-right: 10px; border: 1px solid var(--glass-border); border-radius: 8px; margin: 20px 0;">
+        <!-- ACCORDIONS -->
+        <div style="margin-top: 40px;">
             
-            <!-- FEATURE 2: ACCORDION SECTION 1 - MECHANICS -->
-            <button class="accordion">1. System Mechanics & The "No Ping" Rule</button>
-            <div class="panel">
-                <p>The <strong>Salt Lake Modmail</strong> bot acts as a bridge. It creates a <span class="code">Private Thread</span> for every user.</p>
+            <button class="accordion">01. Isolation & Privacy</button>
+            <div class="panel"><div class="panel-content">
+                <p>The system generates a <strong>Private Thread</strong> for every ticket.</p>
                 <ul>
-                    <li><strong>The Rule:</strong> NEVER reply in the main channel or ping the user.</li>
-                    <li><strong>Why?</strong> The user cannot see the main channel. Pinging them breaks the immersion and creates clutter.</li>
-                    <li><strong>How to Reply:</strong> Just type in the thread. The bot mirrors your message to their DM automatically.</li>
+                    <li><strong>Rule #1:</strong> Never reply in the public #mailbox channel.</li>
+                    <li><strong>Rule #2:</strong> Never ping the user outside the ticket.</li>
                 </ul>
-            </div>
+                <p>This ensures 100% privacy and keeps public channels clean.</p>
+            </div></div>
 
-            <!-- FEATURE 3: ACCORDION SECTION 2 - COMMANDS -->
-            <button class="accordion">2. Command Library</button>
-            <div class="panel">
+            <button class="accordion">02. Command Syntax</button>
+            <div class="panel"><div class="panel-content">
                 <p><strong><span class="code">?note [text]</span></strong><br>
-                Creates a gray embed visible only to staff. Use this for logging warnings or discussing the user privately within the ticket.</p>
+                Internal log. Visible only to staff. Use for warnings or internal discussion.</p>
                 
                 <p><strong><span class="code">?id</span></strong><br>
-                Extracts the User ID. Always use ID for bans, not usernames.</p>
+                Retrieves the User ID. Mandatory for bans.</p>
                 
                 <p><strong><span class="code">?close</span></strong><br>
-                Closes the ticket. Use this only when the issue is fully resolved.</p>
-            </div>
+                Archives the session. Only use when resolution is confirmed.</p>
+            </div></div>
 
-            <!-- FEATURE 4: ACCORDION SECTION 3 - TRIAGE -->
-            <button class="accordion">3. Triage & Priority Matrix</button>
-            <div class="panel">
-                <p>Handle tickets in this order of urgency:</p>
-                <div style="margin-left: 10px;">
-                    <p><span class="status-badge sb-danger">CRITICAL</span> Active Raids, Server Nuking, Doxxing Threats.</p>
-                    <p><span class="status-badge sb-warn">HIGH</span> Harassment, Slurs in Chat, Ban Appeals.</p>
-                    <p><span class="status-badge sb-success">NORMAL</span> General questions, "How do I get roles?", Feedback.</p>
-                </div>
-            </div>
+            <button class="accordion">03. Threat Triage</button>
+            <div class="panel"><div class="panel-content">
+                <p><strong>Priority Level 1 (Critical)</strong><br>
+                Raids, Severe TOS violations, Doxxing. Requires immediate Admin escalation.</p>
+                
+                <p><strong>Priority Level 2 (Standard)</strong><br>
+                Harassment reports, Appeals, General inquiries.</p>
+                
+                <p><strong>Priority Level 3 (Low)</strong><br>
+                Role requests, Feedback.</p>
+            </div></div>
 
-            <!-- FEATURE 5: ACCORDION SECTION 4 - PROFESSIONALISM -->
-            <button class="accordion">4. Professionalism Standards</button>
-            <div class="panel">
-                <p><strong>The "Cooler Heads" Doctrine:</strong></p>
-                <p>Users may be angry. You must remain calm. Do not use sarcasm.</p>
-                <div style="background: rgba(255,0,0,0.1); padding: 10px; border-left: 3px solid red; margin-bottom: 5px;">
-                    <strong>❌ Bad:</strong> "Dude calm down or I'll ban you. You broke the rules lol."
-                </div>
-                <div style="background: rgba(0,255,0,0.1); padding: 10px; border-left: 3px solid green;">
-                    <strong>✅ Good:</strong> "I understand you are frustrated, but please remain respectful so we can assist you with your appeal."
-                </div>
-            </div>
+            <button class="accordion">04. Professional Tone</button>
+            <div class="panel"><div class="panel-content">
+                <p>Maintain neutrality. Do not use personal opinions.</p>
+                <p><strong>Good:</strong> "We are reviewing your request."<br>
+                <strong>Bad:</strong> "Idk let me ask someone lol."</p>
+                <p>Your goal is de-escalation, not argumentation.</p>
+            </div></div>
 
-            <!-- FEATURE 6: ACCORDION SECTION 5 - ESCALATION -->
-            <button class="accordion">5. Emergency & Takeover Protocols</button>
-            <div class="panel">
-                <p><strong>The <span class="code">?takeover</span> Command:</strong></p>
-                <p>This is a "Nuclear Option" reserved for Admins.</p>
+            <button class="accordion">05. The Takeover Protocol</button>
+            <div class="panel"><div class="panel-content">
+                <p><strong>Command: <span class="code">?takeover</span></strong></p>
+                <p>Hardware locks the thread to Admins only. Use only if a staff member is compromised or the situation involves legal threats.</p>
+            </div></div>
+
+            <button class="accordion">06. Voice Chat Etiquette</button>
+            <div class="panel"><div class="panel-content">
+                <p>If a user requests a Voice Chat (VC) for a ticket:</p>
                 <ul>
-                    <li>It locks the thread.</li>
-                    <li>It removes all Moderators from the ticket.</li>
-                    <li>Use case: A Moderator is abusing the user, or the ticket involves sensitive legal issues.</li>
+                    <li>Always have a second staff member present (Two-Person Rule).</li>
+                    <li>Do not record without consent.</li>
+                    <li>Summarize the VC outcomes in the ticket using <span class="code">?note</span> afterwards.</li>
                 </ul>
-            </div>
+            </div></div>
 
-            <!-- FEATURE 7: ACCORDION SECTION 6 - STATUS ICONS -->
-            <button class="accordion">6. Bot Reactions Guide</button>
-            <div class="panel">
-                <p>The bot reacts to your messages to confirm status:</p>
-                <p>✅ = Message logged internally (if DMing bot).</p>
-                <p>📨 = Message successfully delivered to User.</p>
-                <p>❌ = Delivery failed (User blocked bot or closed DMs).</p>
-            </div>
+            <button class="accordion">07. Logging & Evidence</button>
+            <div class="panel"><div class="panel-content">
+                <p>All bans require proof. Use <span class="code">?note</span> to paste image links of evidence before closing a ticket.</p>
+                <p>If a user deletes a message, the bot logs it. Check the logs channel before replying.</p>
+            </div></div>
 
-            <!-- FEATURE 8: ACCORDION SECTION 7 - ROLE HIERARCHY -->
-            <button class="accordion">7. Role Hierarchy</button>
-            <div class="panel">
-                <p><strong>Moderators:</strong> Can reply, close tickets, add notes.</p>
-                <p><strong>Admins:</strong> Can do all Mod actions + <span class="code">?takeover</span> + View Logs.</p>
-                <p><em>Always tag a Senior Mod if you are unsure about a ban appeal.</em></p>
-            </div>
+            <button class="accordion">08. Mental Health & Breaks</button>
+            <div class="panel"><div class="panel-content">
+                <p>Staff work is stressful. If a ticket becomes overwhelming:</p>
+                <ul>
+                    <li>Ask a colleague to take over.</li>
+                    <li>Step away from the screen.</li>
+                    <li>Do not engage if you are angry.</li>
+                </ul>
+            </div></div>
+
         </div>
 
-        <p style="font-size: 0.8rem; text-align: center; color: var(--danger);">* Do not refresh the page. The timer will reset.</p>
-        
-        <button id="btn-start-app" class="btn" disabled>Awaiting Authorization...</button>
+        <button id="btn-start-app" class="btn" disabled>System Locking...</button>
     </div>
 
-    <!-- SECTION 2: QUIZ INTERFACE -->
+    <!-- SECTION 2: QUIZ -->
     <div id="section-quiz" class="glass-panel hidden">
-        <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+        <div class="progress-container"><div id="progress-fill" class="progress-fill"></div></div>
         
-        <span class="question-meta" id="q-meta">Question 1 of 10 • Difficulty: Easy</span>
-        <h2 id="q-title">Basic Knowledge</h2>
-        <p id="q-text">Question text goes here...</p>
+        <span style="text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; color: var(--text-muted);" id="q-meta">Question 1</span>
+        <h2 id="q-title" style="margin-top: 10px;">Title</h2>
+        <p id="q-text">Text</p>
 
-        <div id="input-container">
-            <!-- Textarea injected here -->
-        </div>
+        <div id="input-container"></div>
 
-        <button id="btn-next" class="btn" onclick="nextQuestion()">Submit & Next</button>
+        <button id="btn-next" class="btn" onclick="nextQuestion()">Next Step</button>
     </div>
 
     <!-- SECTION 3: RESULTS -->
-    <div id="section-results" class="glass-panel hidden">
-        <h1 style="color: #50fa7b;">Application Complete</h1>
-        <p>Your session has been recorded. The system has generated an encrypted report containing your answers and response metrics.</p>
+    <div id="section-results" class="glass-panel hidden" style="text-align: center;">
+        <i class="fa-regular fa-paper-plane" style="font-size: 4rem; margin-bottom: 20px;"></i>
+        <h1>Application Sent</h1>
+        <p style="font-size: 1.5rem; color: #fff;">Ask to be read - you will get your results in 30 minutes-24 hours.</p>
+        <p>A secure copy of your answers has been transmitted to High Command.</p>
         
-        <p>Please copy the string below and DM it to the Hiring Manager.</p>
-        
-        <textarea id="final-output" readonly style="font-family: monospace; font-size: 0.8rem; color: #0f0;"></textarea>
-        
-        <button class="btn" onclick="copyResults()">Copy to Clipboard</button>
+        <!-- Fallback just in case -->
+        <button class="btn" onclick="location.reload()" style="background: #333; color: #fff; margin-top: 40px; width: auto; display: inline-block; padding: 15px 30px;">Return to Start</button>
     </div>
 
     <script>
-        // --- ACCORDION LOGIC ---
-        var acc = document.getElementsByClassName("accordion");
-        var i;
-
-        for (i = 0; i < acc.length; i++) {
-          acc[i].addEventListener("click", function() {
-            this.classList.toggle("active");
-            var panel = this.nextElementSibling;
-            if (panel.style.maxHeight) {
-              panel.style.maxHeight = null;
-            } else {
-              panel.style.maxHeight = panel.scrollHeight + "px";
-            } 
-          });
-        }
-
         // --- CONFIGURATION ---
-        const STUDY_TIME_SECONDS = 300; // 5 Minutes
-        let studyTimeLeft = STUDY_TIME_SECONDS;
-        let timerInterval;
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1449912812301320222/nGcBnu0wA7LczKQEi5CRSpWaIXpqJC72SOXnWpYeFsF4f2e7Ydsyqe6mAFiEv93ktAsd";
+        const STUDY_TIME = 180; // 3 Minutes
 
-        // --- APP STATE ---
-        let currentQuestionIndex = 0;
-        let questionStartTime = 0;
-        const answers = [];
+        // --- ANIMATION ---
+        let step = 1;
+        setInterval(() => {
+            document.querySelectorAll('.flow-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${step}`).classList.add('active');
+            step = step >= 4 ? 1 : step + 1;
+        }, 1000);
 
-        const questions = [
-            {
-                id: "intro",
-                title: "Applicant Identification",
-                text: "Please enter your Discord Username and User ID (e.g., User#1234 | 987654321).",
-                difficulty: "Required",
-                type: "short"
-            },
-            {
-                id: "q1",
-                title: "Basic Discord Knowledge",
-                text: "To use our bot, you need a user's ID (not just their username). How do you find a User ID on Discord?",
-                difficulty: "Very Easy",
-                type: "long"
-            },
-            {
-                id: "q2",
-                title: "Availability",
-                text: "What is your timezone and what times of day are you usually active on Discord?",
-                difficulty: "Easy",
-                type: "long"
-            },
-            {
-                id: "q3",
-                title: "Bot Mechanics",
-                text: "Why is it important that you do not ping the user or talk in the main #mailbox channel, and instead only reply inside the thread?",
-                difficulty: "Easy",
-                type: "long"
-            },
-            {
-                id: "q4",
-                title: "Troubleshooting",
-                text: "A user says: 'I just joined and I can't see any channels. Can you please give me the Member role?' Our Verify Bot does this automatically. What do you do?",
-                difficulty: "Medium",
-                type: "long"
-            },
-            {
-                id: "q5",
-                title: "Tools & Commands",
-                text: "Give an example of a situation where you would use the `?note` command instead of replying directly.",
-                difficulty: "Medium",
-                type: "long"
-            },
-            {
-                id: "q6",
-                title: "Conflict of Interest",
-                text: "A close friend opens a ticket asking for a punishment removal. Do you handle it yourself or tag another moderator? Why?",
-                difficulty: "Medium/Hard",
-                type: "long"
-            },
-            {
-                id: "q7",
-                title: "Triage & Prioritization",
-                text: "Order these by priority (1=Highest, 3=Lowest) and explain why:\n\nA: User asking to change nickname.\nB: Report of a raid/spammers active now.\nC: Ban appeal from 3 months ago.",
-                difficulty: "Hard",
-                type: "long"
-            },
-            {
-                id: "q8",
-                title: "Policy Interpretation",
-                text: "A user is technically following rules but is being passive-aggressive and rude, making others uncomfortable. Do you punish them? Explain.",
-                difficulty: "Hard",
-                type: "long"
-            },
-            {
-                id: "q9",
-                title: "Ethics & Security",
-                text: "Describe a scenario where a Moderator might have messed up so badly that an Admin needs to use `?takeover`.",
-                difficulty: "Very Hard",
-                type: "long"
-            },
-            {
-                id: "q10",
-                title: "Critical Thinking",
-                text: "A user is baiting you, calling you names, trying to get an angry reaction to screenshot. How do you handle this professionally?",
-                difficulty: "Expert",
-                type: "long"
-            }
-        ];
-
-        // --- STUDY GUIDE TIMER LOGIC ---
-        function startStudyTimer() {
-            const display = document.getElementById('timer-display');
-            const btn = document.getElementById('btn-start-app');
-            
-            timerInterval = setInterval(() => {
-                studyTimeLeft--;
-                
-                // Format MM:SS
-                const minutes = Math.floor(studyTimeLeft / 60);
-                const seconds = studyTimeLeft % 60;
-                display.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-
-                if (studyTimeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    display.innerText = "00:00";
-                    display.style.color = "#00ff00";
-                    display.style.borderColor = "#00ff00";
-                    
-                    // Auto transition logic
-                    btn.disabled = false;
-                    btn.innerText = "Proceed to Application";
-                    btn.classList.add('pulse'); // Visual cue
-                    
-                    // Auto-click after 1 second delay for smoothness
-                    setTimeout(() => {
-                       startApplication(); 
-                    }, 1500);
-                }
-            }, 1000);
+        // --- ACCORDION ---
+        const acc = document.getElementsByClassName("accordion");
+        for (let i = 0; i < acc.length; i++) {
+            acc[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                const panel = this.nextElementSibling;
+                if (panel.style.maxHeight) {
+                    panel.style.maxHeight = null;
+                } else {
+                    panel.style.maxHeight = panel.scrollHeight + "px";
+                } 
+            });
         }
+        // Open first one
+        if(acc.length > 0) acc[0].click();
 
-        function startApplication() {
+        // --- TIMER ---
+        let timeLeft = STUDY_TIME;
+        const display = document.getElementById('timer-display');
+        const startBtn = document.getElementById('btn-start-app');
+
+        const timer = setInterval(() => {
+            timeLeft--;
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            display.innerText = `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                display.style.opacity = "0.3";
+                startBtn.disabled = false;
+                startBtn.innerText = "Begin Application";
+            }
+        }, 1000);
+
+        startBtn.onclick = () => {
             document.getElementById('section-study').classList.add('hidden');
             document.getElementById('section-quiz').classList.remove('hidden');
             renderQuestion(0);
-        }
+        };
 
-        // --- QUIZ LOGIC ---
-        function renderQuestion(index) {
-            if (index >= questions.length) {
-                finishQuiz();
-                return;
-            }
+        // --- QUIZ DATA ---
+        let qIndex = 0;
+        let qStart = 0;
+        const answers = [];
+        const questions = [
+            { title: "Identity", text: "Discord Username & User ID", type: "short" },
+            { title: "Basic Protocol", text: "How do you find a User ID?", type: "long" },
+            { title: "Availability", text: "Timezone & Active Hours", type: "long" },
+            { title: "System Logic", text: "Why is the #mailbox channel off-limits for replies?", type: "long" },
+            { title: "Troubleshooting", text: "User asks for 'Member' role (automated). How do you reply?", type: "long" },
+            { title: "Usage", text: "When do you use ?note instead of a reply?", type: "long" },
+            { title: "Conflict", text: "A friend asks for unban. Protocol?", type: "long" },
+            { title: "Triage", text: "Rank priority: Nickname change vs Active Raid vs Appeal.", type: "long" },
+            { title: "Judgment", text: "User is rude but following rules. Action?", type: "long" },
+            { title: "Security", text: "When is ?takeover mandatory?", type: "long" },
+            { title: "Pressure", text: "User is baiting you for a reaction. Response?", type: "long" }
+        ];
 
-            const q = questions[index];
+        function renderQuestion(idx) {
+            if (idx >= questions.length) { submitApplication(); return; }
             
-            // Update UI
-            document.getElementById('q-meta').innerText = `Question ${index + 1} of ${questions.length} • Difficulty: ${q.difficulty}`;
+            const q = questions[idx];
+            document.getElementById('q-meta').innerText = `Question ${idx + 1}/${questions.length}`;
             document.getElementById('q-title').innerText = q.title;
             document.getElementById('q-text').innerText = q.text;
-            
-            // Progress bar
-            const pct = ((index) / questions.length) * 100;
-            document.getElementById('progress-fill').style.width = `${pct}%`;
+            document.getElementById('progress-fill').style.width = `${((idx) / questions.length) * 100}%`;
 
-            // Input field
             const container = document.getElementById('input-container');
-            container.innerHTML = ''; // Clear prev
+            container.innerHTML = q.type === 'short' 
+                ? `<input type="text" id="ans" placeholder="Answer..." autocomplete="off">`
+                : `<textarea id="ans" placeholder="Detailed response..."></textarea>`;
             
-            let inputHTML = '';
-            if (q.type === 'short') {
-                inputHTML = `<input type="text" id="current-answer" placeholder="Type your answer here..." autocomplete="off">`;
-            } else {
-                inputHTML = `<textarea id="current-answer" placeholder="Type your detailed response here..."></textarea>`;
-            }
-            container.innerHTML = inputHTML;
-            
-            // Focus input
-            setTimeout(() => document.getElementById('current-answer').focus(), 100);
-
-            // Start Stealth Timer
-            questionStartTime = Date.now();
+            setTimeout(() => document.getElementById('ans').focus(), 100);
+            qStart = Date.now();
         }
 
         function nextQuestion() {
-            const inputEl = document.getElementById('current-answer');
-            const val = inputEl.value.trim();
-
-            if (!val) {
-                inputEl.style.borderColor = 'var(--danger)';
-                inputEl.placeholder = "Answer is required to proceed.";
-                return;
-            }
-
-            // Calculate duration (Stealth)
-            const duration = ((Date.now() - questionStartTime) / 1000).toFixed(1);
-
-            // Save Data
-            answers.push({
-                question: questions[currentQuestionIndex].title,
-                answer: val,
-                timeTaken: duration
-            });
-
-            // Move Next
-            currentQuestionIndex++;
-            renderQuestion(currentQuestionIndex);
-        }
-
-        // --- RESULTS LOGIC ---
-        function finishQuiz() {
-            document.getElementById('section-quiz').classList.add('hidden');
-            document.getElementById('section-results').classList.remove('hidden');
-
-            let report = "```ini\n[ SALT LAKE APPLICATION REPORT ]\n\n";
+            const input = document.getElementById('ans');
+            if (!input.value.trim()) { input.style.borderColor = "red"; return; }
             
-            answers.forEach((item, i) => {
-                report += `[Q${i+1}] ${item.question}\n`;
-                report += `Time Spent: ${item.timeTaken}s\n`;
-                report += `Answer: ${item.answer}\n\n`;
-                report += `----------------------------------------\n`;
+            answers.push({
+                q: questions[qIndex].title,
+                a: input.value.trim(),
+                time: ((Date.now() - qStart) / 1000).toFixed(1)
             });
-
-            report += "\n[ END OF REPORT ]\n```";
-
-            document.getElementById('final-output').value = report;
+            
+            qIndex++;
+            renderQuestion(qIndex);
         }
 
-        function copyResults() {
-            const copyText = document.getElementById("final-output");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            navigator.clipboard.writeText(copyText.value).then(() => {
-                alert("Copied! Send this to the Hiring Manager.");
+        function submitApplication() {
+            const btn = document.getElementById('btn-next');
+            btn.innerText = "Sending...";
+            btn.disabled = true;
+
+            // Format for Discord Embed
+            // We'll split fields if too many, but for 11 questions, we might hit limits.
+            // Safer to use description for bulk text or fewer fields.
+            // Let's use fields but truncated if needed.
+            
+            const fields = answers.map(item => ({
+                name: `**${item.q}** (${item.time}s)`,
+                value: `> ${item.a.substring(0, 1000)}` // Limit length per field
+            }));
+
+            const payload = {
+                username: "Application System",
+                embeds: [{
+                    title: "📄 New Staff Application",
+                    color: 16777215, // White
+                    fields: fields,
+                    footer: { text: "Salt Lake Staff Portal • Secure Transmission" },
+                    timestamp: new Date().toISOString()
+                }]
+            };
+
+            fetch(WEBHOOK_URL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    document.getElementById('section-quiz').classList.add('hidden');
+                    document.getElementById('section-results').classList.remove('hidden');
+                } else {
+                    alert("Transmission Error. Please notify High Command.");
+                    btn.disabled = false;
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Network Error.");
+                btn.disabled = false;
             });
         }
-
-        // --- INIT ---
-        window.onload = startStudyTimer;
-
     </script>
 </body>
 </html>
