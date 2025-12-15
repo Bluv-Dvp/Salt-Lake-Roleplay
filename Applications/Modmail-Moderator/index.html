@@ -298,23 +298,13 @@
                 <p>Hardware locks the thread to Admins only. Use only if a staff member is compromised or the situation involves legal threats.</p>
             </div></div>
 
-            <button class="accordion">06. Voice Chat Etiquette</button>
-            <div class="panel"><div class="panel-content">
-                <p>If a user requests a Voice Chat (VC) for a ticket:</p>
-                <ul>
-                    <li>Always have a second staff member present (Two-Person Rule).</li>
-                    <li>Do not record without consent.</li>
-                    <li>Summarize the VC outcomes in the ticket using <span class="code">?note</span> afterwards.</li>
-                </ul>
-            </div></div>
-
-            <button class="accordion">07. Logging & Evidence</button>
+            <button class="accordion">06. Logging & Evidence</button>
             <div class="panel"><div class="panel-content">
                 <p>All bans require proof. Use <span class="code">?note</span> to paste image links of evidence before closing a ticket.</p>
                 <p>If a user deletes a message, the bot logs it. Check the logs channel before replying.</p>
             </div></div>
 
-            <button class="accordion">08. Mental Health & Breaks</button>
+            <button class="accordion">07. Mental Health & Breaks</button>
             <div class="panel"><div class="panel-content">
                 <p>Staff work is stressful. If a ticket becomes overwhelming:</p>
                 <ul>
@@ -326,7 +316,8 @@
 
         </div>
 
-        <button id="btn-start-app" class="btn" disabled>System Locking...</button>
+        <!-- Button hidden initially, used only for fallback logic if needed -->
+        <button id="btn-start-app" class="btn" style="display:none;" disabled>System Locking...</button>
     </div>
 
     <!-- SECTION 2: QUIZ -->
@@ -385,8 +376,7 @@
         // --- TIMER ---
         let timeLeft = STUDY_TIME;
         const display = document.getElementById('timer-display');
-        const startBtn = document.getElementById('btn-start-app');
-
+        
         const timer = setInterval(() => {
             timeLeft--;
             const m = Math.floor(timeLeft / 60);
@@ -395,17 +385,12 @@
 
             if (timeLeft <= 0) {
                 clearInterval(timer);
-                display.style.opacity = "0.3";
-                startBtn.disabled = false;
-                startBtn.innerText = "Begin Application";
+                // INSTANTLY TRANSITION
+                document.getElementById('section-study').classList.add('hidden');
+                document.getElementById('section-quiz').classList.remove('hidden');
+                renderQuestion(0);
             }
         }, 1000);
-
-        startBtn.onclick = () => {
-            document.getElementById('section-study').classList.add('hidden');
-            document.getElementById('section-quiz').classList.remove('hidden');
-            renderQuestion(0);
-        };
 
         // --- QUIZ DATA ---
         let qIndex = 0;
